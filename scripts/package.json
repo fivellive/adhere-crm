@@ -1,0 +1,9 @@
+{
+  "name": "adhere-crm-scripts",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "firebase-admin": "^12.4.0",
+    "prompt-sync": "^4.2.0"
+  }
+}

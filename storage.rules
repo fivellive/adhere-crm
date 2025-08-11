@@ -1,0 +1,25 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAdmin() {
+      return request.auth != null && (
+        request.auth.token.email == "fivecoat@adherestudio.com" ||
+        request.auth.token.email == "young@adherestudio.com"
+      );
+    }
+
+    // Files under projects/{projectId}/*
+    match /projects/{projectId}/{allPaths=**} {
+      allow read: if
+        exists(/databases/$(database)/documents/projects/$(projectId)) &&
+        get(/databases/$(database)/documents/projects/$(projectId)).data.public == true
+        || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Block all else by default
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

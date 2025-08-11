@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body { background: #0f1113; color: #f2f2f2; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+
+.card { background: #171a1f; border-radius: 1rem; box-shadow: 0 10px 24px rgba(0,0,0,0.2); }
+.btn { border-radius: 0.75rem; padding: 0.75rem 1rem; background: #f7b500; color: #0f1113; font-weight: 700; }
+.input { background: #0f1113; border: 1px solid #2a2f36; border-radius: 0.5rem; padding: 0.6rem 0.8rem; color: #f2f2f2; }
+.label { color: #8d93a1; font-size: 0.85rem; }

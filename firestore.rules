@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null && (
+        request.auth.token.email == "fivecoat@adherestudio.com" ||
+        request.auth.token.email == "young@adherestudio.com"
+      );
+    }
+
+    match /clients/{clientId} {
+      allow read: if true;
+      allow write, create, update, delete: if isAdmin();
+    }
+
+    match /projects/{projectId} {
+      allow read: if resource.data.public == true || isAdmin();
+      allow create, update, delete: if isAdmin();
+
+      match /files/{fileId} {
+        allow read: if get(/databases/$(database)/documents/projects/$(projectId)).data.public == true || isAdmin();
+        allow write, create, update, delete: if isAdmin();
+      }
+
+      match /comments/{commentId} {
+        allow read: if get(/databases/$(database)/documents/projects/$(projectId)).data.public == true || isAdmin();
+        allow write, create, update, delete: if isAdmin();
+      }
+    }
+  }
+}
